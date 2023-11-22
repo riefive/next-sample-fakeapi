@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { CookiesProvider } from 'next-client-cookies/server';
 import { Inter } from 'next/font/google';
 import ComponentsStyledRegistry from '@/systems/components.styled.antd';
 import './globals.css';
@@ -18,7 +19,11 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body className={inter.className}>
-                <ComponentsStyledRegistry>{children}</ComponentsStyledRegistry>
+                <CookiesProvider>
+                    <ComponentsStyledRegistry>
+                        {children}
+                    </ComponentsStyledRegistry>
+                </CookiesProvider>
             </body>
         </html>
     );

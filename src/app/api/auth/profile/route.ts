@@ -6,9 +6,10 @@ const optionsHeaders = {
     'Content-Type': 'application/json',
 };
 
-export async function GET() {
+export async function GET(request: Request) {
     const cookieStore = cookies();
     const token = cookieStore.get('token');
+    console.log(request.headers.get('cookie'))
     if (!token) {
         return Response.json(
             { message: 'Forbidden Access!!!' },
@@ -18,7 +19,7 @@ export async function GET() {
     try {
         const res = await fetch(`${process.env.API_FAKE_REST}/${pathName}`, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token.value}`,
                 ...optionsHeaders,
             },
         });

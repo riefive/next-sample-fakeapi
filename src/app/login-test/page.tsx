@@ -23,10 +23,12 @@ async function doLogin(token: string) {
 export default function AppLoginTest() {
     const cookies = useCookies();
     const token: string | any = cookies.get('token');
-    console.log(cookies.get('version'))
+    console.log(cookies.get('version'));
+
     useEffect(() => {
         doLogin(token);
     }, []);
+
     return (
         <div>
             <h1>Login Test Client</h1>

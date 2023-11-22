@@ -1,4 +1,5 @@
 import cookie from 'cookie';
+import { cookies } from 'next/headers';
 import {
     AuthLoginRequestSchema,
     AuthLoginResponseSchema,
@@ -12,11 +13,12 @@ const optionsCookie: any = {
     httpOnly: true,
     secure: process.env.NODE_ENV !== 'development',
     maxAge: 24 * 60 * 60 * 20, // 20 days
-    sameSite: 'strict',
+    sameSite: 'lax',
     path: '/',
 };
 
 export async function POST(request: Request) {
+    const cookieStore = cookies();
     try {
         const bodies: AuthLoginRequestSchema | any = await request.json();
         const res = await fetch(`${process.env.API_FAKE_REST}/${pathName}`, {
@@ -25,6 +27,8 @@ export async function POST(request: Request) {
             body: JSON.stringify({ ...bodies }),
         });
         const data: AuthLoginResponseSchema = await res.json();
+        cookieStore.set('token', data.access_token);
+        cookieStore.set('refresh', data.refresh_token);
         return new Response(JSON.stringify(data), {
             status: 200,
             // @ts-ignore
