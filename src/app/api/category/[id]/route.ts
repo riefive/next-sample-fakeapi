@@ -52,7 +52,7 @@ export async function PUT(
         return Response.json(data);
     } catch (error: any) {
         return Response.json(
-            { message: 'Failed to post a data!!!', error: error.toString() },
+            { message: 'Failed to change a data!!!', error: error.toString() },
             { status: 500 }
         );
     }
