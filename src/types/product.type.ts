@@ -1,4 +1,4 @@
-import { CategorySchema } from "./category.type";
+import { CategorySchema } from './category.type';
 
 export interface ProductSchema {
     id: number | string;

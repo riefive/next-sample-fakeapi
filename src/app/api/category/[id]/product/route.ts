@@ -1,7 +1,7 @@
 import { CategorySchema } from '@/types/category.type';
 
 const pathName = 'categories';
-const pathNameChild = 'products'
+const pathNameChild = 'products';
 const optionsHeaders = {
     'Content-Type': 'application/json',
 };
@@ -15,9 +15,12 @@ export async function GET(
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
     }
     try {
-        const res = await fetch(`${process.env.API_FAKE_REST}/${pathName}/${id}/${pathNameChild}`, {
-            headers: optionsHeaders,
-        });
+        const res = await fetch(
+            `${process.env.API_FAKE_REST}/${pathName}/${id}/${pathNameChild}`,
+            {
+                headers: optionsHeaders,
+            }
+        );
         const data: CategorySchema[] = await res.json();
         return Response.json({ data });
     } catch (error: any) {
