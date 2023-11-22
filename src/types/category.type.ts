@@ -1,5 +1,5 @@
 export interface CategorySchema {
-    id: string;
+    id: number | string;
     name: string;
     image: string;
     creationAt?: string;
@@ -9,4 +9,9 @@ export interface CategorySchema {
 export interface CategoryInsertSchema {
     name: string;
     image: string;
+}
+
+export interface CategoryUpdateSchema {
+    name?: string;
+    image?: string;
 }

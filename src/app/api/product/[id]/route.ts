@@ -1,6 +1,6 @@
-import { CategorySchema, CategoryUpdateSchema } from '@/types/category.type';
+import { ProductSchema, ProductUpdateSchema } from '@/types/product.type';
 
-const pathName = 'categories';
+const pathName = 'products';
 const optionsHeaders = {
     'Content-Type': 'application/json',
 };
@@ -20,7 +20,7 @@ export async function GET(
                 headers: optionsHeaders,
             }
         );
-        const data: CategorySchema = await res.json();
+        const data: ProductSchema = await res.json();
         return Response.json(data);
     } catch (error: any) {
         return Response.json(
@@ -39,7 +39,7 @@ export async function PUT(
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
     }
     try {
-        const bodies: CategoryUpdateSchema | any = await request.json();
+        const bodies: ProductUpdateSchema | any = await request.json();
         const res = await fetch(
             `${process.env.API_FAKE_REST}/${pathName}/${id}`,
             {
@@ -48,7 +48,7 @@ export async function PUT(
                 body: JSON.stringify({ ...bodies }),
             }
         );
-        const data: CategorySchema = await res.json();
+        const data: ProductSchema = await res.json();
         return Response.json(data);
     } catch (error: any) {
         return Response.json(
