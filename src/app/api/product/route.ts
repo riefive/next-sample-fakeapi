@@ -7,15 +7,34 @@ const optionsHeaders = {
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
+    const newParams = new URLSearchParams();
     const page = searchParams.get('page');
     const limit = searchParams.get('limit');
+    const filterTitle = searchParams.get('title')
+    const filterPrice = searchParams.get('price')
+    const filterPriceMin = searchParams.get('price_min')
+    const filterPriceMax = searchParams.get('price_max')
+    const filterCategory = searchParams.get('category')
     let urlNext = `${process.env.API_FAKE_REST}/${pathName}`;
+    if (filterTitle) {
+        newParams.append('title', filterTitle);
+    }
+    if (filterPrice) {
+        newParams.append('price', filterPrice);
+    } else if (filterPriceMin && filterPriceMax) {
+        newParams.append('price_min', filterPriceMin);
+        newParams.append('price_max', filterPriceMax);
+    }
+    if (filterCategory) {
+        newParams.append('categoryId', filterCategory);
+    }
     if (page && limit) {
-        const newParams = new URLSearchParams();
         const offsetValue =
             Number(page) > 0 ? (Number(page) - 1) * Number(limit) : 0;
         newParams.append('offset', offsetValue.toString());
         newParams.append('limit', Number(limit).toString());
+    }
+    if (newParams.size > 0) {
         urlNext = `${
             process.env.API_FAKE_REST
         }/${pathName}?${newParams.toString()}`;
