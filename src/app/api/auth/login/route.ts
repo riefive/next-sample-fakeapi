@@ -1,8 +1,19 @@
-import { AuthLoginRequestSchema, AuthLoginResponseSchema } from '@/types/auth.type'
+import cookie from 'cookie';
+import {
+    AuthLoginRequestSchema,
+    AuthLoginResponseSchema,
+} from '@/types/auth.type';
 
 const pathName = 'auth/login';
 const optionsHeaders = {
     'Content-Type': 'application/json',
+};
+const optionsCookie: any = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== 'development',
+    maxAge: 24 * 60 * 60 * 20, // 20 days
+    sameSite: 'strict',
+    path: '/',
 };
 
 export async function POST(request: Request) {
@@ -14,7 +25,23 @@ export async function POST(request: Request) {
             body: JSON.stringify({ ...bodies }),
         });
         const data: AuthLoginResponseSchema = await res.json();
-        return Response.json(data);
+        return new Response(JSON.stringify(data), {
+            status: 200,
+            // @ts-ignore
+            headers: {
+                'Set-Cookie': [
+                    cookie.serialize(
+                        'token',
+                        data.access_token || '',
+                        optionsCookie
+                    ),
+                    cookie.serialize('refresh', data.refresh_token || '', {
+                        ...optionsCookie,
+                        maxAge: 10 * 60 * 60, // 10 hours
+                    }),
+                ],
+            },
+        });
     } catch (error: any) {
         return Response.json(
             { message: 'Failed to login!!!', error: error.toString() },
