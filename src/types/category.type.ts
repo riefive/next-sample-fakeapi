@@ -5,3 +5,8 @@ export interface CategorySchema {
     creationAt?: string;
     updatedAt?: string;
 }
+
+export interface CategoryInsertSchema {
+    name: string;
+    image: string;
+}
