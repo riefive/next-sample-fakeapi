@@ -33,7 +33,8 @@ async function doProfile(urlHost: string) {
 
 export default async function AppLoginTestServer() {
     const headersList = headers();
-    const urlHost = `http://${headersList.get('host')}`;
+    const protocol = headersList.get('x-forwarded-proto') ?? 'http'
+    const urlHost = `${protocol}://${headersList.get('host')}`;
     const token: string | any = cookies().get('token');
     await doLogin(urlHost, token);
     await new Promise((resolve) => setTimeout(resolve, 1000));
