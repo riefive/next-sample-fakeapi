@@ -10,11 +10,11 @@ export async function GET(request: Request) {
     const newParams = new URLSearchParams();
     const page = searchParams.get('page');
     const limit = searchParams.get('limit');
-    const filterTitle = searchParams.get('title')
-    const filterPrice = searchParams.get('price')
-    const filterPriceMin = searchParams.get('price_min')
-    const filterPriceMax = searchParams.get('price_max')
-    const filterCategory = searchParams.get('category')
+    const filterTitle = searchParams.get('title');
+    const filterPrice = searchParams.get('price');
+    const filterPriceMin = searchParams.get('price_min');
+    const filterPriceMax = searchParams.get('price_max');
+    const filterCategory = searchParams.get('category');
     let urlNext = `${process.env.API_FAKE_REST}/${pathName}`;
     if (filterTitle) {
         newParams.append('title', filterTitle);
