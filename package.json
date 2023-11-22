@@ -13,8 +13,10 @@
     },
     "dependencies": {
         "@ant-design/cssinjs": "^1.17.2",
+        "@apollo/client": "^3.8.7",
         "antd": "^5.11.2",
         "cookie": "^0.6.0",
+        "graphql": "^16.8.1",
         "next": "14.0.3",
         "next-client-cookies": "^1.1.0",
         "react": "^18",

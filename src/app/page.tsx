@@ -3,7 +3,7 @@ import React from 'react';
 import { Flex, Button } from 'antd';
 
 export default function AppHome() {
-    console.log(cookies().get('token'))
+    console.log(cookies().get('token'));
     const flexStyle: React.CSSProperties = {
         marginTop: '1em',
     };

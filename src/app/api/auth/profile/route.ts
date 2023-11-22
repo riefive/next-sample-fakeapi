@@ -9,7 +9,7 @@ const optionsHeaders = {
 export async function GET(request: Request) {
     const cookieStore = cookies();
     const token = cookieStore.get('token');
-    console.log(request.headers.get('cookie'))
+    console.log(request.headers.get('cookie'));
     if (!token) {
         return Response.json(
             { message: 'Forbidden Access!!!' },

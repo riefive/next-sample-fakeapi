@@ -9,7 +9,7 @@ async function doLogin(urlHost: string, token: string) {
     }
     const result = await fetch(`${urlHost}/api/auth/login`, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         method: 'post',
         body: JSON.stringify({ email: 'john@mail.com', password: 'changeme' }),
@@ -23,7 +23,7 @@ async function doLogin(urlHost: string, token: string) {
 
 async function doProfile(urlHost: string) {
     const result = await fetch(`${urlHost}/api/auth/profile`, {
-        headers: headers()
+        headers: headers(),
     });
     if (result) {
         console.log(await result.json());
@@ -33,7 +33,7 @@ async function doProfile(urlHost: string) {
 
 export default async function AppLoginTestServer() {
     const headersList = headers();
-    const protocol = headersList.get('x-forwarded-proto') ?? 'http'
+    const protocol = headersList.get('x-forwarded-proto') ?? 'http';
     const urlHost = `${protocol}://${headersList.get('host')}`;
     const token: string | any = cookies().get('token');
     await doLogin(urlHost, token);
