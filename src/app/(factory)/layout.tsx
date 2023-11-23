@@ -37,12 +37,12 @@ export default function RootLayout({
                                 items={[
                                     {
                                         key: 'test-client',
-                                        href: '/login-test-client',
+                                        href: '/test-client',
                                         title: 'Test Client',
                                     },
                                     {
                                         key: 'test-server',
-                                        href: '/login-test-server',
+                                        href: '/test-server',
                                         title: 'Test Server',
                                     },
                                 ]}
