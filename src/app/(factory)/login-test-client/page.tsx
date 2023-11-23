@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useCookies } from 'next-client-cookies';
-import { Flex, Skeleton } from 'antd';
+import { Skeleton } from 'antd';
 
 async function doLogin(token: string) {
     if (token) {
@@ -24,31 +24,19 @@ async function doLogin(token: string) {
 export default function AppLoginTest() {
     const cookies = useCookies();
     const token: string | any = cookies.get('token');
-    console.log(cookies.get('version'));
-
-    const flexStyle: React.CSSProperties = {
-        marginTop: '1em',
-        padding: '1em',
-    };
 
     useEffect(() => {
         doLogin(token);
     }, [token]);
 
     return (
-        <Flex
-            vertical
-            justify='center'
-            align='center'
-            gap='large'
-            style={flexStyle}
-        >
+        <>
             <h1>Login Test Client</h1>
             {Array(3)
                 .fill(0)
                 .map((_item, i) => {
                     return <Skeleton key={i}></Skeleton>;
                 })}
-        </Flex>
+        </>
     );
 }
