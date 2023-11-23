@@ -2,9 +2,8 @@ import { gql } from '@apollo/client';
 import useApolloClient from '@/systems/utils/apollo.client';
 import { ProductSchema, ProductInsertSchema } from '@/types/product.type';
 
-const client = useApolloClient();
-
 export async function GET(request: Request) {
+    const client = useApolloClient();
     const { searchParams } = new URL(request.url);
     const page = searchParams.get('page');
     const limit = searchParams.get('limit');
@@ -63,6 +62,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+    const client = useApolloClient();
     try {
         const bodies: ProductInsertSchema | any = await request.json();
         const fields = [];

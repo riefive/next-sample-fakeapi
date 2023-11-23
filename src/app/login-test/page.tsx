@@ -33,7 +33,7 @@ export default function AppLoginTest() {
 
     useEffect(() => {
         doLogin(token);
-    }, []);
+    }, [token]);
 
     return (
         <Flex

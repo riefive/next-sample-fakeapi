@@ -3,8 +3,8 @@ import useApolloClient from '@/systems/utils/apollo.client';
 import { CategorySchema, CategoryInsertSchema } from '@/types/category.type';
 
 export async function GET() {
+    const client = useApolloClient();
     try {
-        const client = useApolloClient();
         const { data } = await client.query({
             query: gql`
                 query {
@@ -27,9 +27,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+    const client = useApolloClient();
     try {
         const bodies: CategoryInsertSchema | any = await request.json();
-        const client = useApolloClient();
         const { data } = await client.mutate({
             mutation: gql`
                 mutation AddCategory($name: String!, $image: String!) {

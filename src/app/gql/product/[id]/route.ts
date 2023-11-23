@@ -2,12 +2,11 @@ import { gql } from '@apollo/client';
 import useApolloClient from '@/systems/utils/apollo.client';
 import { ProductSchema, ProductUpdateSchema } from '@/types/product.type';
 
-const client = useApolloClient();
-
 export async function GET(
     request: Request,
     { params }: { params: { id: string } }
 ) {
+    const client = useApolloClient();
     const id = params.id;
     if (!id || (typeof id === 'string' && isNaN(Number(id)))) {
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
@@ -44,6 +43,7 @@ export async function PUT(
     request: Request,
     { params }: { params: { id: string } }
 ) {
+    const client = useApolloClient();
     const id = params.id;
     if (!id || (typeof id === 'string' && isNaN(Number(id)))) {
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
@@ -94,6 +94,7 @@ export async function DELETE(
     request: Request,
     { params }: { params: { id: string } }
 ) {
+    const client = useApolloClient();
     const id = params.id;
     if (!id || (typeof id === 'string' && isNaN(Number(id)))) {
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });

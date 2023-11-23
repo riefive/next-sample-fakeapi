@@ -6,12 +6,12 @@ export async function GET(
     request: Request,
     { params }: { params: { id: string } }
 ) {
+    const client = useApolloClient();
     const id = params.id;
     if (!id || (typeof id === 'string' && isNaN(Number(id)))) {
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
     }
     try {
-        const client = useApolloClient();
         const { data } = await client.query({
             query: gql`
                 query {
@@ -36,13 +36,13 @@ export async function PUT(
     request: Request,
     { params }: { params: { id: string } }
 ) {
+    const client = useApolloClient();
     const id = params.id;
     if (!id || (typeof id === 'string' && isNaN(Number(id)))) {
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
     }
     try {
         const bodies: CategoryUpdateSchema | any = await request.json();
-        const client = useApolloClient();
         const fields = [];
         if (bodies && typeof bodies == 'object') {
             for (const key in bodies) {
@@ -80,12 +80,12 @@ export async function DELETE(
     request: Request,
     { params }: { params: { id: string } }
 ) {
+    const client = useApolloClient();
     const id = params.id;
     if (!id || (typeof id === 'string' && isNaN(Number(id)))) {
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
     }
     try {
-        const client = useApolloClient();
         const { data } = await client.mutate({
             mutation: gql`
                 mutation {

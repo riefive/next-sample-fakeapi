@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import useApolloClient from '@/systems/utils/apollo.client';
 
 export async function GET(request: Request) {
+    const client = useApolloClient();
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
     const emailValid =
@@ -15,7 +16,6 @@ export async function GET(request: Request) {
         );
     }
     try {
-        const client = useApolloClient();
         const { data } = await client.query({
             query: gql`
                 query {
