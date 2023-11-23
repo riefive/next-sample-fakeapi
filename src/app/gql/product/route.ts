@@ -18,10 +18,10 @@ export async function GET(request: Request) {
         fields.push(`title: ${JSON.stringify(filterTitle)}`);
     }
     if (filterPrice) {
-        fields.push(`price: ${JSON.stringify(filterPrice)}`);
+        fields.push(`price: ${filterPrice}`);
     } else if (filterPriceMin && filterPriceMax) {
-        fields.push(`price_min: ${JSON.stringify(filterPriceMin)}`);
-        fields.push(`price_max: ${JSON.stringify(filterPriceMax)}`);
+        fields.push(`price_min: ${filterPriceMin}`);
+        fields.push(`price_max: ${filterPriceMax}`);
     }
     if (filterCategory) {
         fields.push(`categoryId: ${JSON.stringify(filterCategory)}`);
@@ -29,8 +29,8 @@ export async function GET(request: Request) {
     if (page && limit) {
         const offsetValue =
             Number(page) > 0 ? (Number(page) - 1) * Number(limit) : 0;
-        fields.push(`offset: ${JSON.stringify(offsetValue)}`);
-        fields.push(`limit: ${JSON.stringify(Number(limit))}`);
+        fields.push(`offset: ${offsetValue}`);
+        fields.push(`limit: ${Number(limit)}`);
     }
     const text = fields.length > 0 ? `(${fields.join(', ')})` : '';
     try {
