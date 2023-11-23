@@ -10,6 +10,7 @@
         "format": "prettier --check --ignore-path .gitignore .",
         "format:fix": "prettier --write --ignore-path .gitignore .",
         "format:lint": "npm run format:fix && npm run lint",
+        "prisma:init": "npx prisma init --datasource-provider mysql",
         "prisma:generate": "npx prisma generate",
         "prisma:migrate": "npx prisma migrate dev --name init",
         "prisma:pull": "npx prisma db pull",
@@ -18,6 +19,7 @@
     "dependencies": {
         "@ant-design/cssinjs": "^1.17.2",
         "@apollo/client": "^3.8.7",
+        "@prisma/client": "^5.6.0",
         "antd": "^5.11.2",
         "cookie": "^0.6.0",
         "graphql": "^16.8.1",
