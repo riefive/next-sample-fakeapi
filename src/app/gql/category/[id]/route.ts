@@ -93,7 +93,7 @@ export async function DELETE(
                 }
            `,
         });
-        const result: CategorySchema | any = data.deleteCategory;
+        const result: any = data.deleteCategory;
         return Response.json(result);
     } catch (error: any) {
         return Response.json(

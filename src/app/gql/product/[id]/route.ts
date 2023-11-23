@@ -1,6 +1,8 @@
 import { gql } from '@apollo/client';
 import useApolloClient from '@/systems/utils/apollo.client';
-import { UserSchema, UserUpdateSchema } from '@/types/user.type';
+import { ProductSchema, ProductUpdateSchema } from '@/types/product.type';
+
+const client = useApolloClient();
 
 export async function GET(
     request: Request,
@@ -11,20 +13,25 @@ export async function GET(
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
     }
     try {
-        const client = useApolloClient();
         const { data } = await client.query({
             query: gql`
                 query {
-                    user(id: ${id}) {
+                    product(id: ${id}) {
                         id
-                        name
-                        email
-                        role
+                        title
+                        price
+                        description
+                        images
+                        category {
+                            id
+                            name
+                            image
+                        }
                     }
                 }
             `,
         });
-        return Response.json({ ...data.user });
+        return Response.json({ ...data.product });
     } catch (error: any) {
         return Response.json(
             { message: 'Failed to get a data!!!', error: error.toString() },
@@ -42,8 +49,7 @@ export async function PUT(
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
     }
     try {
-        const bodies: UserUpdateSchema | any = await request.json();
-        const client = useApolloClient();
+        const bodies: ProductUpdateSchema | any = await request.json();
         const fields = [];
         if (bodies && typeof bodies == 'object') {
             for (const key in bodies) {
@@ -54,21 +60,27 @@ export async function PUT(
         const { data } = await client.mutate({
             mutation: gql`
                 mutation {
-                    updateUser(
+                    updateProduct(
                         id: ${id}, 
                         changes: { 
                             ${fields.join(',')}
                         }
                     ) {
                         id
-                        name
-                        email
-                        role
+                        title
+                        price
+                        description
+                        images
+                        category {
+                            id
+                            name
+                            image
+                        }
                     }
                 }
            `,
         });
-        const result: UserSchema | any = data.updateUser;
+        const result: ProductSchema | any = data.updateProduct;
         return Response.json({ ...result });
     } catch (error: any) {
         return Response.json(
@@ -87,15 +99,14 @@ export async function DELETE(
         return Response.json({ message: 'Id is required!!!' }, { status: 500 });
     }
     try {
-        const client = useApolloClient();
         const { data } = await client.mutate({
             mutation: gql`
                 mutation {
-                    deleteUser(id: ${id})
+                    deleteProduct(id: ${id})
                 }
            `,
         });
-        const result: any = data.deleteUser;
+        const result: any = data.deleteProduct;
         return Response.json(result);
     } catch (error: any) {
         return Response.json(
