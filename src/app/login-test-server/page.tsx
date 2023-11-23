@@ -2,6 +2,7 @@
 
 import cookie from 'cookie';
 import { cookies, headers } from 'next/headers';
+import { Flex, Skeleton } from 'antd';
 
 async function doLogin(urlHost: string, token: string) {
     if (token) {
@@ -39,9 +40,26 @@ export default async function AppLoginTestServer() {
     await doLogin(urlHost, token);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     await doProfile(urlHost);
+
+    const flexStyle: React.CSSProperties = {
+        marginTop: '1em',
+        padding: '1em',
+    };
+
     return (
-        <div>
+        <Flex
+            vertical
+            justify='center'
+            align='center'
+            gap='large'
+            style={flexStyle}
+        >
             <h1>Login Test at Server</h1>
-        </div>
+            {Array(3)
+                .fill(0)
+                .map((_item, i) => {
+                    return <Skeleton key={i}></Skeleton>;
+                })}
+        </Flex>
     );
 }
